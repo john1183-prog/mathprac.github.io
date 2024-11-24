@@ -1,0 +1,118 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  height: 100vh;
+  background-color: rgb(240, 240, 240);
+  
+}
+canvas{
+  border: 5px solid rgb(0, 0, 128);
+  border-radius: 5px;
+  display: block;
+  position: relative;
+  margin: 10px auto;
+  width: 90vw;
+  height: 50vh;
+  background-image: url('stars.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.home{
+  border-radius: 15px;
+  background-color: white;
+  margin: 20px auto;
+  width: 90%;
+}
+.home button{
+  display: block;
+  margin: auto;
+  width: 100%;
+  font-size: 70px;
+  padding: 10px;
+  color: white;
+  background-color: rgb(50, 200, 50);
+  border-radius: 10px;
+  border-top: 1px solid white;
+  border-left: 1px solid white;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.home p{
+  text-align: center;
+  color: navy;
+  margin: 20px;
+  font-size: 50px;
+  padding: 5px;
+}
+.spacing{
+  display: none;
+  width: 100%;
+  height: 35%;
+  align-items: center;
+  justify-content: space-around;
+}
+.bar{
+  display: none;
+  border-radius: 5px;
+  position: relative;
+  background-image: linear-gradient(to right, red, yellow, green);
+  border: none;
+  margin: 0px auto;
+  width: 90%;
+  height: 20px;
+}
+.bar .meter{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-color: white;
+}
+#touchpad{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid white;
+  width: 50%;
+  height: 25%;
+}
+#topright{
+  background: linear-gradient(70deg, rgb(240, 240, 255), rgb(240, 240, 255), rgb(200, 200, 255), rgb(240, 240, 255), rgb(200, 200, 255));
+}
+#topleft{
+  background: linear-gradient(-70deg, rgb(240, 240, 255), rgb(240, 240, 255), rgb(200, 200, 255), rgb(240, 240, 255), rgb(200, 200, 255));
+}
+#bottomright{
+  background: linear-gradient(-70deg, rgb(200, 200, 255), rgb(240, 240, 255), rgb(200, 200, 255), rgb(240, 240, 255), rgb(240, 240, 255));
+}
+#bottomleft{
+  background: linear-gradient(70deg, rgb(200, 200, 255), rgb(240, 240, 255), rgb(200, 200, 255), rgb(240, 240, 255), rgb(240, 240, 255));
+}
+.keyboard{
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 25% 25% 25% 25%;
+  grid-gap: 3px;
+  background-color: rgb(200, 200, 255);
+  border-radius: 20px;
+  padding: 10px;
+  width: 45%;
+  height: 100%;
+}
+.keyboard button{
+  color: white;
+  border-radius: 20%;
+  background-color: rgb(50, 50, 255);
+  border-top: 1px solid white;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid white;
+  font-size: 100px;
+  padding: 5px;
+}
+.keyboard .special{
+  background-color: rgba(255, 50, 50, 0.7);
+}

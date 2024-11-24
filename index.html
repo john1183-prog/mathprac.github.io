@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Math Journey</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+  <body>
+    <canvas id="mycanvas"></canvas>
+    <div class="home" id="homeMsg">
+      <p>Help the rocket travelling through space to it's destination. <br> Watch out for space rocks and remember to always recharge your bullet, it'll go a long way. <br><br> Click the button when you are ready</p>
+      <button onclick="launch()">Launch</button>
+    </div>
+    <div class="bar" id="bar">
+      <div class="meter"></div>
+    </div>
+    <div class="spacing" id="control">
+      <div id="touchpad">
+        <div id="topleft"></div>
+        <div id="topright"></div>
+        <div id="bottomleft"></div>
+        <div id="bottomright"></div>
+      </div>
+    
+    <div class="keyboard">
+      <button onclick="add(9)">9</button>
+      <button onclick="add(8)">8</button>
+      <button onclick="add(7)">7</button>
+      <button onclick="add(6)">6</button>
+      <button onclick="add(5)">5</button>
+      <button onclick="add(4)">4</button>
+      <button onclick="add(3)">3</button>
+      <button onclick="add(2)">2</button>
+      <button onclick="add(1)">1</button>
+      <button onclick="response = ''" class="special">C</button>
+      <button onclick="add(0)">0</button>
+      <button onclick="response = response.substr(0, response.length - 1)" class="special">CE</button>
+    </div>
+    </div>
+    <audio id="gamebonus" src="gamebonus.mp3"></audio>
+    <audio id="gameover" src="gameover.mp3"></audio>
+    <audio id="gamemusic" src="gamemusic.mp3"></audio>
+    <audio id="rockexplosion" src="rockexplosion.mp3"></audio>
+    <audio id="rocketexplosion" src="rocketexplosion.mp3"></audio>
+    <script src="script.js"></script>
+  </body>
+</html>
