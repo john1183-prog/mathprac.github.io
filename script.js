@@ -2,6 +2,13 @@ const canvas = document.getElementById("mycanvas");
 const ctx = canvas.getContext('2d');
 var score = 0;
 var bulletnum = 5;
+
+document.addEventListener('touchstart', function(event) {
+  if (event.touches.length === 2) {
+    event.preventDefault();
+  }
+});
+
 // rocket
 const rocket = {
   x: canvas.width / 3,
