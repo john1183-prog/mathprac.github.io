@@ -2,13 +2,6 @@ const canvas = document.getElementById("mycanvas");
 const ctx = canvas.getContext('2d');
 var score = 0;
 var bulletnum = 5;
-
-document.addEventListener('touchstart', function(event) {
-  if (event.touches.length === 2) {
-    event.preventDefault();
-  }
-});
-
 // rocket
 const rocket = {
   x: canvas.width / 3,
@@ -185,13 +178,18 @@ function update(){
   // effects
   if (level > 100){
     orderOfQuestion.pop()
+    if (orderOfQuestion.length == 0){
+      gameoverfunc("Congratulations!!")
+    cancelAnimationFrame(id);
+    }else{
     level = 50
     cancelAnimationFrame(id);
     transition()
+    }
   }else if (level < 0){
     level = 0
     cancelAnimationFrame(id);
-    alert("Game over better luck next time.  Refresh to start again.")
+    gameoverfunc(`Game Over`);
   }
     levelbar.style.width = `${100 - level}%`;
   ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
@@ -252,7 +250,7 @@ function spacejunks(){
     }
     r.y += r.dy
     r.x += r.dx
-    if (r.x > rocket.x && r.x + r.width < rocket.x + rocket.width && r.y > rocket.y && r.y + r.height < rocket.y + rocket.height && !immunity){
+    if (r.x < rocket.x + rocket.width && r.x + r.width > rocket.x && r.y > rocket.y && r.y < rocket.y + rocket.height && r.y + r.height > rocket.y && !immunity){
       document.getElementById("rocketexplosion").play()
       toShowRocketEffect = true
     ar.x = r.x //affected rock
@@ -355,4 +353,11 @@ function transition(){
       r.y = 0
     })
   }
+}
+
+function gameoverfunc(message){
+  document.getElementById("control").style.display = "none";
+  document.querySelector("#endMsg").style.display = "block"
+  document.querySelector("#endMsg p").innerHTML = `You scored a total of ${score}`
+  document.querySelector("#endMsg header").innerHTML = message
 }
