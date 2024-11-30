@@ -1,13 +1,13 @@
 const canvas = document.getElementById("mycanvas");
 const ctx = canvas.getContext('2d');
 var score = 0;
-var bulletnum = 10;
+var bulletnum = 7;
 // rocket
 const rocket = {
   x: canvas.width / 3,
   y: canvas.height / 3,
-  width: 70,
-  height: 100,
+  width: 40,
+  height: 80,
   image: new Image()
 };
 // bullet and math variables
@@ -86,7 +86,7 @@ var rockArray = [rock, rock2, rock3, rock4];
 // main game
 rocket.image.onload = () => {
   rocket.y = rocket.y + rocket.height/3
-  ctx.drawImage(rocket.image, rocket.x, rocket.y, rocket.width, rocket.height);
+  ctx.drawImage(rocket.image, rocket.x, rocket.y + 20, rocket.width, rocket.height);
   addition()
   console.log("rocket loaded successfully");
 }
