@@ -1,7 +1,7 @@
 const canvas = document.getElementById("mycanvas");
 const ctx = canvas.getContext('2d');
 var score = 0;
-var bulletnum = 5;
+var bulletnum = 10;
 // rocket
 const rocket = {
   x: canvas.width / 3,
@@ -29,7 +29,7 @@ var touchesx = [];
 var orderOfQuestion = [division, multiplication, subtraction, addition]
 // space junk/rock
 const rock = {
-  x: Math.floor(Math.random() * canvas.width),
+  x: canvas.width/3 + Math.floor(Math.random() * (canvas.width/3 - 20)),
   y: -20,
   width: 30 + Math.floor(Math.random() * 20),
   height: 30 + Math.floor(Math.random() * 20),
@@ -38,7 +38,7 @@ const rock = {
   dy: 0.5
 }
 const rock2 = {
-  x: Math.floor(Math.random() * canvas.width),
+  x: canvas.width/3 + Math.floor(Math.random() * (canvas.width/3 - 20)),
   y: -20,
   width: 30 + Math.floor(Math.random() * 20),
   height: 30 + Math.floor(Math.random() * 20),
@@ -47,7 +47,7 @@ const rock2 = {
   dy: 0.7
 }
 const rock3 = {
-  x: Math.floor(Math.random() * canvas.width),
+  x: canvas.width/3 + Math.floor(Math.random() * (canvas.width/3 - 20)),
   y: -20,
   width: 30 + Math.floor(Math.random() * 20),
   height: 30 + Math.floor(Math.random() * 20),
@@ -56,7 +56,7 @@ const rock3 = {
   dy: 1
 }
 const rock4 = {
-  x: Math.floor(Math.random() * canvas.width),
+  x: canvas.width/3 + Math.floor(Math.random() * (canvas.width/3 - 20)),
   y: -20,
   width: 30 + Math.floor(Math.random() * 20),
   height: 30 + Math.floor(Math.random() * 20),
@@ -93,10 +93,6 @@ rocket.image.onload = () => {
 effect.onload = () => {
   console.log("effect loaded successfully");
 }
-// audio
-const gameover = document.getElementById("gameover");
-
-const gamemusic = document.getElementById("gamemusic");
 
 const touchpad = document.getElementById("touchpad");
 const levelbar = document.querySelector(".bar .meter");
@@ -188,6 +184,7 @@ function update(){
     }
   }else if (level < 0){
     level = 0
+    document.getElementById("gameover").play()
     cancelAnimationFrame(id);
     gameoverfunc(`Game Over`);
   }
@@ -250,16 +247,16 @@ function spacejunks(){
     }
     r.y += r.dy
     r.x += r.dx
-    if (r.x < rocket.x + rocket.width && r.x + r.width > rocket.x && r.y > rocket.y && r.y < rocket.y + rocket.height && r.y + r.height > rocket.y && !immunity){
+    if (r.x < rocket.x + rocket.width - 10 && r.x + r.width > rocket.x + 10 && r.y > rocket.y && r.y < rocket.y + rocket.height && r.y + r.height > rocket.y && !immunity){
+      rocket.x = NaN;
       document.getElementById("rocketexplosion").play()
-      toShowRocketEffect = true
+      toShowRocketEffect = true;
     ar.x = r.x //affected rock
     ar.y = r.y //affected rock
     ar.width = rocket.width //affected rock
     ar.height = rocket.height //affected rock
-      level -= 20;
+      level -= 10;
       immunity = true;
-      rocket.x = NaN
       setTimeout(()=>{
         rocket.x = canvas.width/2
         rocket.y = canvas.height
@@ -313,6 +310,7 @@ function effects(r){
 function launch(){
   document.getElementById("homeMsg").style.display = "none";
  let id = requestAnimationFrame(launch);
+  document.getElementById("gamemusic").play()
   
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   rocket.y--
