@@ -6,7 +6,7 @@
 body{
   height: 100vh;
   background-color: rgb(240, 240, 240);
-  
+  touch-action: manipulation;
 }
 canvas{
   border: 5px solid rgb(0, 0, 128);
@@ -72,12 +72,17 @@ canvas{
   height: 100%;
   background-color: white;
 }
+.bar img{
+  position: absolute;
+  height: 90%;
+  right: 5px;
+}
 #touchpad{
   display: grid;
   grid-template-columns: 1fr 1fr;
   border: 2px solid white;
   width: 50%;
-  height: 25%;
+  height: 50%;
 }
 #topright{
   background: linear-gradient(70deg, rgb(240, 240, 255), rgb(240, 240, 255), rgb(200, 200, 255), rgb(240, 240, 255), rgb(200, 200, 255));
@@ -115,4 +120,23 @@ canvas{
 }
 .keyboard .special{
   background-color: rgba(255, 50, 50, 0.7);
+}
+#endMsg{
+  display: none;
+  text-align: center;
+  margin-top: 30px;
+  color: blue;
+}
+#endMsg button{
+  display: block;
+  margin: 10px auto;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px;
+  color: white;
+  background-color: rgb(50, 200, 50);
+  border-radius: 10px;
+}
+#endMsg header{
+  font-size: 20px;
 }
