@@ -29,7 +29,7 @@ var touchesx = [];
 var orderOfQuestion = [division, multiplication, subtraction, addition]
 // space junk/rock
 const rock = {
-  x: canvas.width/3 + Math.floor(Math.random() * (canvas.width/3 - 20)),
+  x: Math.floor(Math.random() * canvas.width),
   y: -20,
   width: 30 + Math.floor(Math.random() * 20),
   height: 30 + Math.floor(Math.random() * 20),
@@ -38,7 +38,7 @@ const rock = {
   dy: 0.5
 }
 const rock2 = {
-  x: canvas.width/3 + Math.floor(Math.random() * (canvas.width/3 - 20)),
+  x: Math.floor(Math.random() * canvas.width),
   y: -20,
   width: 30 + Math.floor(Math.random() * 20),
   height: 30 + Math.floor(Math.random() * 20),
@@ -47,7 +47,7 @@ const rock2 = {
   dy: 0.7
 }
 const rock3 = {
-  x: canvas.width/3 + Math.floor(Math.random() * (canvas.width/3 - 20)),
+  x: Math.floor(Math.random() * canvas.width),
   y: -20,
   width: 30 + Math.floor(Math.random() * 20),
   height: 30 + Math.floor(Math.random() * 20),
@@ -56,7 +56,7 @@ const rock3 = {
   dy: 1
 }
 const rock4 = {
-  x: canvas.width/3 + Math.floor(Math.random() * (canvas.width/3 - 20)),
+  x: Math.floor(Math.random() * canvas.width),
   y: -20,
   width: 30 + Math.floor(Math.random() * 20),
   height: 30 + Math.floor(Math.random() * 20),
@@ -96,6 +96,7 @@ effect.onload = () => {
 
 const touchpad = document.getElementById("touchpad");
 const levelbar = document.querySelector(".bar .meter");
+const calcDisplay = document.querySelector(".keyboard p");
 
 touchpad.addEventListener("touchmove", function(event){
   event.preventDefault()
@@ -160,12 +161,13 @@ function update(){
   ctx.fillStyle = 'rgb(200, 200, 255)';
   ctx.textAlign = 'right';
   ctx.fillText(response, (canvas.width - 150)/2 + 130, 17);
+  calcDisplay.innerHTML = response;
   
   if (ans == parseInt(response)){
     document.getElementById("gamebonus").play();
       ctx.drawImage(scoreimg, canvas.width - 75, canvas.height - 27, 30, 25);
     bulletnum ++;
-    level ++;
+    level += 10;
     response = '';
     orderOfQuestion[orderOfQuestion.length - 1]();
   }else{
@@ -240,14 +242,14 @@ rockArray.forEach(r=>{
 function spacejunks(){
   rockArray.forEach((r)=>{
     if (r.y > canvas.height){
-      r.x = Math.floor(Math.random() * (canvas.width- 20));
+      r.x = rocket.width + Math.floor(Math.random() * (canvas.width - (2.5 * rocket.width) - r.width));
       r.y = -20
       r.width = 30 + Math.floor(Math.random() * 20)
       r.height = 30 + Math.floor(Math.random() * 20)
     }
     r.y += r.dy
     r.x += r.dx
-    if (r.x < rocket.x + rocket.width - 10 && r.x + r.width > rocket.x + 10 && r.y > rocket.y && r.y < rocket.y + rocket.height && r.y + r.height > rocket.y && !immunity){
+    if (r.x < rocket.x + rocket.width - 10 && r.x + r.width > rocket.x + 10 && r.y > rocket.y && r.y < rocket.y + rocket.height - rocket.height/4 && r.y + r.height > rocket.y && !immunity){
       rocket.x = NaN;
       document.getElementById("rocketexplosion").play()
       toShowRocketEffect = true;
