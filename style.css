@@ -118,6 +118,14 @@ canvas{
   font-size: 100px;
   padding: 5px;
 }
+.keyboard p{
+  padding: 5px;
+  text-align: center;
+  font-size: 100px;
+  color: navy;
+  grid-column-end: span 3;
+  background-color: white;
+}
 .keyboard .special{
   background-color: rgba(255, 50, 50, 0.7);
 }
