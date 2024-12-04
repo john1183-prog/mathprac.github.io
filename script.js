@@ -26,6 +26,7 @@ var ar = {};
 var level = 50;
 var immunity = false;
 var touchesx = [];
+var playMusic = false;
 var orderOfQuestion = [division, multiplication, subtraction, addition]
 // space junk/rock
 const rock = {
@@ -177,6 +178,7 @@ function update(){
   if (level > 100){
     orderOfQuestion.pop()
     if (orderOfQuestion.length == 0){
+      document.querySelector("#endMsg").style.color = "green"
       gameoverfunc("Congratulations!!")
     cancelAnimationFrame(id);
     }else{
@@ -187,7 +189,10 @@ function update(){
   }else if (level < 0){
     level = 0
     document.getElementById("gameover").play()
+    document.getElementById("gamemusic").pause()
     cancelAnimationFrame(id);
+    playMusic = false;
+    document.querySelector("#endMsg header").style.color = "red"
     gameoverfunc(`Game Over`);
   }
     levelbar.style.width = `${100 - level}%`;
@@ -203,6 +208,9 @@ function update(){
   }
   if (immunity){
     ctx.drawImage(shield, rocket.x - 10, rocket.y - 15, rocket.width + 20, rocket.height);
+  }
+  if (playMusic){
+    document.getElementById("gamemusic").play();
   }
 };
 
@@ -312,8 +320,8 @@ function effects(r){
 function launch(){
   document.getElementById("homeMsg").style.display = "none";
  let id = requestAnimationFrame(launch);
-  document.getElementById("gamemusic").play()
   
+  playMusic = true;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   rocket.y--
   ctx.drawImage(rocket.image, rocket.x, rocket.y, rocket.width, rocket.height);
