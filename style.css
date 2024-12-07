@@ -62,7 +62,7 @@ canvas{
   border: none;
   margin: 0px auto;
   width: 90%;
-  height: 20px;
+  height: 50px;
 }
 .bar .meter{
   position: absolute;
@@ -134,17 +134,18 @@ canvas{
   text-align: center;
   margin-top: 30px;
   color: blue;
+  font-size: 60px;
 }
 #endMsg button{
   display: block;
   margin: 10px auto;
   width: 100%;
-  font-size: 20px;
+  font-size: 70px;
   padding: 10px;
   color: white;
   background-color: rgb(50, 200, 50);
   border-radius: 10px;
 }
 #endMsg header{
-  font-size: 30px;
+  font-size: 70px;
 }
