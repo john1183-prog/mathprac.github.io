@@ -1,7 +1,7 @@
 const canvas = document.getElementById("mycanvas");
 const ctx = canvas.getContext('2d');
 var score = 0;
-var bulletnum = 7;
+var bulletnum = 100;
 // rocket
 const rocket = {
   x: canvas.width / 3,
@@ -26,7 +26,7 @@ var ar = {};
 var level = 50;
 var immunity = false;
 var touchesx = [];
-var playMusic = false;
+var immunityno = 0;
 var orderOfQuestion = [division, multiplication, subtraction, addition]
 // space junk/rock
 const rock = {
@@ -165,16 +165,25 @@ function update(){
   calcDisplay.innerHTML = response;
   
   if (ans == parseInt(response)){
+    document.getElementById("gamebonus").pause();
+    document.getElementById("gamebonus").currentTime = 0;
     document.getElementById("gamebonus").play();
       ctx.drawImage(scoreimg, canvas.width - 75, canvas.height - 27, 30, 25);
     bulletnum ++;
-    level += 10;
+    level += 5;
     response = '';
     orderOfQuestion[orderOfQuestion.length - 1]();
+        immunityno += 5;
   }else{
     ctx.drawImage(scoreimg, canvas.width - 70, canvas.height - 22, 25, 20);
   }
   // effects
+  if (immunityno > 0){
+    immunity = true;
+  }else{
+    immunity = false;
+  }
+  
   if (level > 100){
     orderOfQuestion.pop()
     if (orderOfQuestion.length == 0){
@@ -191,7 +200,7 @@ function update(){
     document.getElementById("gameover").play()
     document.getElementById("gamemusic").pause()
     cancelAnimationFrame(id);
-    playMusic = false;
+    document.getElementById("gamemusic").loop = false;
     document.querySelector("#endMsg header").style.color = "red"
     gameoverfunc(`Game Over`);
   }
@@ -209,9 +218,11 @@ function update(){
   if (immunity){
     ctx.drawImage(shield, rocket.x - 10, rocket.y - 15, rocket.width + 20, rocket.height);
   }
-  if (playMusic){
-    document.getElementById("gamemusic").play();
-  }
+  if (rocket.x < 0){
+    rocket.x = 5
+    }else if (rocket.x + rocket.width > canvas. width){
+      rocket.x = canvas.width - rocket.width
+    }
 };
 
 function bulletMove(){
@@ -231,6 +242,8 @@ ctx.lineWidth = 0;
 ctx.stroke();
 rockArray.forEach(r=>{
   if (x > r.x && x < r.x + r.width && y > r.y && y < r.y + r.width && y > 0){
+    document.getElementById("rockexplosion").pause();
+    document.getElementById("rockexplosion").currentTime = 0;
     document.getElementById("rockexplosion").play();
      level += 10;
     score += 20
@@ -259,6 +272,8 @@ function spacejunks(){
     r.x += r.dx
     if (r.x < rocket.x + rocket.width - 10 && r.x + r.width > rocket.x + 10 && r.y > rocket.y && r.y < rocket.y + rocket.height - rocket.height/4 && r.y + r.height > rocket.y && !immunity){
       rocket.x = NaN;
+      document.getElementById("rocketexplosion").pause()
+      document.getElementById("rocketexplosion").currentTime = 0
       document.getElementById("rocketexplosion").play()
       toShowRocketEffect = true;
     ar.x = r.x //affected rock
@@ -266,15 +281,12 @@ function spacejunks(){
     ar.width = rocket.width //affected rock
     ar.height = rocket.height //affected rock
       level -= 10;
-      immunity = true;
+      immunityno += 5;
       setTimeout(()=>{
         rocket.x = canvas.width/2
         rocket.y = canvas.height
         toShowRocketEffect = false
       }, 1000)
-      setTimeout(()=>{
-        immunity = false
-      }, 3000)
     }
   })
 };
@@ -321,7 +333,8 @@ function launch(){
   document.getElementById("homeMsg").style.display = "none";
  let id = requestAnimationFrame(launch);
   
-  playMusic = true;
+  document.getElementById("gamemusic").play();
+  document.getElementById("gamemusic").loop = true;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   rocket.y--
   ctx.drawImage(rocket.image, rocket.x, rocket.y, rocket.width, rocket.height);
@@ -329,6 +342,9 @@ function launch(){
     document.getElementById("control").style.display = "flex";
   if (rocket.y < 0){
     setInterval(()=>{
+      if (immunityno > 0){
+        immunityno -= 0.5
+      }
     score++
     level--
   }, 1000)
@@ -350,10 +366,7 @@ function transition(){
   ctx.fillText(`Level Completed`, canvas.width / 2, canvas.height / 3);
   ctx.drawImage(rocket.image, rocket.x, rocket.y, rocket.width, rocket.height);
   if (rocket.y < 0){
-      immunity = true
-    setTimeout(()=>{
-      immunity = false
-    }, 3000)
+      immunity += 3;
     cancelAnimationFrame(id);
     update()
     rocket.y = canvas.height
